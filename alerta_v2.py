@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-app_unificada_moderno.py
+alerta_v2
+La Fabrica Del Software.
 Aplicación unificada: analiza feeds RSS, genera alerts.geojson/alerts.csv y las muestra
 en una UI moderna (ttkbootstrap cuando esté disponible). Los iconos son generados
 dinámicamente (colores) para no requerir archivos adicionales.
