@@ -9,8 +9,9 @@ dinámicamente (colores) para no requerir archivos adicionales.
 import os
 import json
 import hashlib
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 import feedparser
 import requests
@@ -19,6 +20,7 @@ import pandas as pd
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import webbrowser
+import re
 
 # Intentar usar ttkbootstrap para interfaz moderna; si no está, caerá a ttk estándar.
 try:
@@ -74,26 +76,109 @@ OUT_CSV = "alerts.csv"
 OUT_GEOJSON = "alerts.geojson"
 DUP_HASH_FILE = ".seen_unified_hashes"
 
+@dataclass
+class Location:
+    """Ubicaci\u00f3n normalizada asociada a una alerta de inteligencia."""
+
+    name: str
+    type: Optional[str] = None
+    country: Optional[str] = None
+    region: Optional[str] = None
+    department: Optional[str] = None
+    municipality: Optional[str] = None
+    continent: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    precision: Optional[str] = None
+    geohash: Optional[str] = None
+    timezone: Optional[str] = None
+    source: Optional[str] = None
+    confidence: float = 0.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+# Diccionario local: evita una consulta remota para los lugares frecuentes y
+# conserva el contexto administrativo que no exist\u00eda en la versi\u00f3n anterior.
 GEO_LOCATIONS = {
-    "venezuela": [-66.5897, 6.4238],
-    "colombia": [-74.2973, 4.5709],
-    "usa": [-98.5795, 39.8283],
-    "russia": [105.3188, 61.5240],
-    "ukraine": [31.1656, 48.3794],
-    "china": [104.1954, 35.8617],
-    "iran": [53.6880, 32.4279],
-    "israel": [34.8516, 31.0461],
-    "gaza": [34.3088, 31.3547],
-    "mexico": [-102.5528, 23.6345],
-    "ecuador": [-78.1834, -1.8312],
-    "peru": [-75.0152, -9.19],
-    "brazil": [-51.9253, -14.2350],
+    "venezuela": {"name": "Venezuela", "type": "country", "country": "Venezuela", "continent": "South America", "longitude": -66.5897, "latitude": 6.4238, "precision": "country", "timezone": "America/Caracas"},
+    "colombia": {"name": "Colombia", "type": "country", "country": "Colombia", "continent": "South America", "longitude": -74.2973, "latitude": 4.5709, "precision": "country", "timezone": "America/Bogota"},
+    "bogot\u00e1": {"name": "Bogot\u00e1", "type": "city", "country": "Colombia", "region": "Bogot\u00e1 D.C.", "department": "Bogot\u00e1 D.C.", "municipality": "Bogot\u00e1", "continent": "South America", "longitude": -74.0721, "latitude": 4.7110, "precision": "city", "timezone": "America/Bogota"},
+    "bogota": {"name": "Bogot\u00e1", "type": "city", "country": "Colombia", "region": "Bogot\u00e1 D.C.", "department": "Bogot\u00e1 D.C.", "municipality": "Bogot\u00e1", "continent": "South America", "longitude": -74.0721, "latitude": 4.7110, "precision": "city", "timezone": "America/Bogota"},
+    "c\u00facuta": {"name": "C\u00facuta", "type": "city", "country": "Colombia", "region": "Norte de Santander", "department": "Norte de Santander", "municipality": "C\u00facuta", "continent": "South America", "longitude": -72.5078, "latitude": 7.8939, "precision": "city", "timezone": "America/Bogota"},
+    "cucuta": {"name": "C\u00facuta", "type": "city", "country": "Colombia", "region": "Norte de Santander", "department": "Norte de Santander", "municipality": "C\u00facuta", "continent": "South America", "longitude": -72.5078, "latitude": 7.8939, "precision": "city", "timezone": "America/Bogota"},
+    "usa": {"name": "United States", "type": "country", "country": "United States", "continent": "North America", "longitude": -98.5795, "latitude": 39.8283, "precision": "country"},
+    "russia": {"name": "Russia", "type": "country", "country": "Russia", "continent": "Europe/Asia", "longitude": 105.3188, "latitude": 61.5240, "precision": "country"},
+    "ukraine": {"name": "Ukraine", "type": "country", "country": "Ukraine", "continent": "Europe", "longitude": 31.1656, "latitude": 48.3794, "precision": "country"},
+    "china": {"name": "China", "type": "country", "country": "China", "continent": "Asia", "longitude": 104.1954, "latitude": 35.8617, "precision": "country"},
+    "iran": {"name": "Iran", "type": "country", "country": "Iran", "continent": "Asia", "longitude": 53.6880, "latitude": 32.4279, "precision": "country"},
+    "israel": {"name": "Israel", "type": "country", "country": "Israel", "continent": "Asia", "longitude": 34.8516, "latitude": 31.0461, "precision": "country"},
+    "gaza": {"name": "Gaza", "type": "region", "country": "Palestine", "continent": "Asia", "longitude": 34.3088, "latitude": 31.3547, "precision": "region"},
+    "mexico": {"name": "Mexico", "type": "country", "country": "Mexico", "continent": "North America", "longitude": -102.5528, "latitude": 23.6345, "precision": "country"},
+    "ecuador": {"name": "Ecuador", "type": "country", "country": "Ecuador", "continent": "South America", "longitude": -78.1834, "latitude": -1.8312, "precision": "country"},
+    "peru": {"name": "Peru", "type": "country", "country": "Peru", "continent": "South America", "longitude": -75.0152, "latitude": -9.19, "precision": "country"},
+    "brazil": {"name": "Brazil", "type": "country", "country": "Brazil", "continent": "South America", "longitude": -51.9253, "latitude": -14.2350, "precision": "country"},
 }
 
 
 # -----------------------------
 # LÓGICA DE PROCESAMIENTO
 # -----------------------------
+
+
+
+def extract_place(text):
+    """
+    Intenta encontrar el lugar mencionado en la noticia.
+    """
+    # Lugares conocidos
+    for place in GEO_LOCATIONS.keys():
+        if place.lower() in text.lower():
+            return place
+
+    # Buscar entidades tipo:
+    # "in Bogotá"
+    # "near Cúcuta"
+    # "at Medellín"
+    patrones = [
+        r"\bin\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)",
+        r"\bat\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)",
+        r"\bnear\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*)",
+    ]
+
+    for patron in patrones:
+        m = re.search(patron, text)
+        if m:
+            return m.group(1)
+
+    # Buscar nombres propios consecutivos
+    candidatos = re.findall(
+        r"\b([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,2})",
+        text
+    )
+
+    blacklist = {
+        "Breaking",
+        "Reuters",
+        "News",
+        "World",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    }
+
+    for c in candidatos:
+        if c not in blacklist:
+            return c
+
+    return None
+
+
 def hash_item(title: str, link: str) -> str:
     return hashlib.sha256((title + link).encode("utf-8")).hexdigest()
 
@@ -109,38 +194,66 @@ def severity_from_text(text: str) -> int:
     return min(score, 10)
 
 
-def geocode_place(place: str):
+def geocode_place(place: str) -> Optional[Dict[str, Any]]:
+    """Consulta Nominatim y devuelve su resultado completo, si existe."""
     try:
         r = requests.get(
             "https://nominatim.openstreetmap.org/search",
-            params={"q": place, "format": "json", "limit": 1},
+            params={"q": place, "format": "json", "limit": 1, "addressdetails": 1},
             headers={"User-Agent": "AlertApp"},
             timeout=6
         )
+        r.raise_for_status()
         data = r.json()
         if isinstance(data, list) and len(data) > 0:
-            return [float(data[0]["lon"]), float(data[0]["lat"])]
+            return data[0]
     except Exception:
         return None
     return None
 
 
-def extract_coords_from_text(text: str):
-    t = text.lower()
-    for place, coords in GEO_LOCATIONS.items():
-        if place in t:
-            return coords
-    # Buscar nombres propios capitalizados
-    words = [w.strip(".,()\"'") for w in text.split() if w.istitle()]
-    blacklist = {"Breaking", "Updated", "News", "World"}
-    for w in words:
-        if w in blacklist:
-            continue
-        c = geocode_place(w)
-        if c:
-            return c
-    return [0.0, 0.0]
+def extract_location(text: str) -> Optional[Location]:
+    """Extrae y geocodifica una ubicaci\u00f3n una sola vez por alerta."""
+    place = extract_place(text)
+    if not place:
+        return None
 
+    known_location = GEO_LOCATIONS.get(place.lower())
+    if known_location:
+        return Location(**known_location, source="Local Dictionary", confidence=1.0)
+
+    result = geocode_place(place)
+    if not result:
+        # La entidad fue detectada en el texto, aunque no se pudiera geocodificar.
+        return Location(name=place, source="Text extraction", confidence=0.5)
+
+    address = result.get("address", {})
+    location_type = result.get("type") or result.get("addresstype")
+    region = address.get("state") or address.get("region") or address.get("province")
+    country = address.get("country")
+    return Location(
+        name=result.get("name") or address.get(location_type) or place,
+        type=location_type,
+        country=country,
+        region=region,
+        # En Colombia, el campo estatal de OSM corresponde al departamento.
+        department=region if country == "Colombia" else None,
+        municipality=address.get("municipality") or address.get("city") or address.get("town"),
+        latitude=float(result["lat"]),
+        longitude=float(result["lon"]),
+        precision=location_type,
+        source="OpenStreetMap Nominatim",
+        confidence=0.9,
+    )
+
+
+def extract_coords_from_text(text: str):
+    """Compatibilidad para consumidores antiguos que solo requieren coordenadas."""
+    location = extract_location(text)
+    if location and location.longitude is not None and location.latitude is not None:
+        return [location.longitude, location.latitude]
+
+    return None
 
 def load_seen_hashes():
     if not os.path.exists(DUP_HASH_FILE):
@@ -185,8 +298,14 @@ def poll_once() -> List[Dict[str, Any]]:
                 continue
 
             seen.add(h)
-            coords = extract_coords_from_text(content)
-            lon, lat = coords[0], coords[1]
+            location = extract_location(content)
+            location_data = location.to_dict() if location else None
+            # Se mantienen los campos planos para no romper los archivos y
+            # consumidores existentes; ``location`` es la fuente can\u00f3nica.
+            place = location.name if location else None
+            lon = location.longitude if location else None
+            lat = location.latitude if location else None
+
             sev = severity_from_text(content)
 
             new_alerts.append({
@@ -194,6 +313,8 @@ def poll_once() -> List[Dict[str, Any]]:
                 "title": title,
                 "summary": summary,
                 "link": link,
+                "place": place,
+                "location": location_data,
                 "severity": sev,
                 "longitude": lon,
                 "latitude": lat,
@@ -218,11 +339,36 @@ def append_to_csv(alerts: List[Dict[str, Any]]):
 
 
 def append_to_geojson(alerts: List[Dict[str, Any]]):
-    features = []
+    existing_features = []
+    existing_hashes = set()
+
+    if os.path.exists(OUT_GEOJSON):
+        try:
+            with open(OUT_GEOJSON, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            existing_features = data.get("features", [])
+            existing_hashes = {
+                feature.get("properties", {}).get("id_hash")
+                for feature in existing_features
+            }
+        except Exception:
+            existing_features = []
+            existing_hashes = set()
+
+    features = list(existing_features)
     for a in alerts:
+        if a.get("id_hash") in existing_hashes:
+            continue
+
+        lon = a.get("longitude")
+        lat = a.get("latitude")
+        geometry = None
+        if lon is not None and lat is not None:
+            geometry = {"type": "Point", "coordinates": [lon, lat]}
+
         features.append({
             "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [a["longitude"], a["latitude"]]},
+            "geometry": geometry,
             "properties": {k: v for k, v in a.items() if k not in ("longitude", "latitude")},
         })
     geojson = {"type": "FeatureCollection", "features": features}
@@ -403,7 +549,7 @@ class AppUI:
 
         for feature in data.get("features", []):
             props = feature.get("properties", {})
-            geom = feature.get("geometry", {})
+            geom = feature.get("geometry") or {}
             coords = geom.get("coordinates", [None, None])
             # GeoJSON uses [lon, lat]
             lon, lat = coords[0] if len(coords) > 0 else None, coords[1] if len(coords) > 1 else None
@@ -457,7 +603,7 @@ class AppUI:
         self.tree.delete(*self.tree.get_children())
         for feature in self.current_geojson_data.get("features", []):
             props = feature.get("properties", {})
-            geom = feature.get("geometry", {})
+            geom = feature.get("geometry") or {}
             coords = geom.get("coordinates", [None, None])
             lon, lat = (coords[0] if len(coords) > 0 else None, coords[1] if len(coords) > 1 else None)
             title = props.get("title", "")
@@ -471,7 +617,15 @@ class AppUI:
                 except Exception:
                     sev_val = 0
             if sev_val >= minsev:
-                self.tree.insert("", "end", values=(title, "[ Ver mapa ]", lat, lon, link, sev, props.get("scraped_at", "")))
+                self.tree.insert("", "end", values=(
+                    title,
+                    "[ Ver mapa ]",
+                    lat,
+                    lon,
+                    link,
+                    sev,
+                    props.get("scraped_at", "")
+                ))
         self.set_status(f"Filtro aplicado: severidad ≥ {minsev}")
 
     # -------------------------
