@@ -1705,6 +1705,531 @@
         "severity": 0,
         "scraped_at": "2026-07-14T17:13:25.793559+00:00"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.3188,
+          61.524
+        ]
+      },
+      "properties": {
+        "id_hash": "da2022c45c9dd213cdeb456a1045d3ec50aab7c2b61fb96d18cd21f7766b91b4",
+        "title": "US, Russian astronauts launch into orbit for joint space mission",
+        "summary": "NASA chief Jared Isaacman made a rare visit to the Russia-operated Baikonur Cosmodrome to witness the launch.",
+        "link": "https://www.aljazeera.com/news/2026/7/14/us-russian-astronauts-launch-into-orbit-for-joint-space-mission?traffic_source=rss",
+        "place": "Russia",
+        "location": {
+          "name": "Russia",
+          "type": "country",
+          "country": "Russia",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "Europe/Asia",
+          "latitude": 61.524,
+          "longitude": 105.3188,
+          "precision": "country",
+          "geohash": null,
+          "timezone": null,
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 0,
+        "scraped_at": "2026-07-14T18:35:03.452236+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.4917691,
+          14.5844444
+        ]
+      },
+      "properties": {
+        "id_hash": "d31b4d2ef2ad4b4da1bc24642eaa26e539ca3bea594907ccdcbc62a0d43b2158",
+        "title": "Sudan faces escalating hunger crisis due to war and Hormuz disruption – WFP",
+        "summary": "Renewed conflict and tensions in the Strait of Hormuz have slowed fertiliser shipments, worsening hunger in Sudan.",
+        "link": "https://www.aljazeera.com/news/2026/7/14/sudan-faces-escalating-hunger-crisis-due-to-war-and-hormuz-disruption?traffic_source=rss",
+        "place": "السودان",
+        "location": {
+          "name": "السودان",
+          "type": "administrative",
+          "country": "السودان",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": null,
+          "latitude": 14.5844444,
+          "longitude": 29.4917691,
+          "precision": "administrative",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:05.356239+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.688,
+          32.4279
+        ]
+      },
+      "properties": {
+        "id_hash": "412833f669366b88d77f43c09ce7c744c16c171ed951386a17ac4bcd6465e410",
+        "title": "US consumer prices drop in June as energy costs tumble",
+        "summary": "Inflation eased due to cheaper energy, but experts warn price increases may return after renewed US-Iran tensions.",
+        "link": "https://www.aljazeera.com/economy/2026/7/14/us-consumer-prices-drop-in-june-as-energy-costs-tumble?traffic_source=rss",
+        "place": "Iran",
+        "location": {
+          "name": "Iran",
+          "type": "country",
+          "country": "Iran",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "Asia",
+          "latitude": 32.4279,
+          "longitude": 53.688,
+          "precision": "country",
+          "geohash": null,
+          "timezone": null,
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:05.356373+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9194353,
+          50.7138568
+        ]
+      },
+      "properties": {
+        "id_hash": "e10985e033395f151be52160b15ffed4e2abc272400b3f7c9d5374461f923706",
+        "title": "Murder of UK politician Ann Widdecombe was ‘targeted attack’, police say",
+        "summary": "Investigators are looking into what motivated the killing and how much preparation was involved.",
+        "link": "https://www.aljazeera.com/news/2026/7/14/murder-of-uk-politician-ann-widdecombe-was-targeted-attack-police-say?traffic_source=rss",
+        "place": "Mord",
+        "location": {
+          "name": "Mord",
+          "type": "artwork",
+          "country": "Deutschland",
+          "region": "Hessen",
+          "department": null,
+          "municipality": "Rasdorf",
+          "continent": null,
+          "latitude": 50.7138568,
+          "longitude": 9.9194353,
+          "precision": "artwork",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:06.905612+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.688,
+          32.4279
+        ]
+      },
+      "properties": {
+        "id_hash": "7f269fa7d520812e0be2912020c7b949146f2c268a997883f7879a6cc6994613",
+        "title": "MPs vote on Hillsborough amendment as Starmer and Burnham address Commons – UK politics live",
+        "summary": "<p>Outgoing prime minister opens third reading debate on the Hillsborough law bill</p><p>In response to a question from Alec Shelbrooke (Con), <strong>Campbell</strong> said he was “totally unaware” not just of the wording of the Tory opposition day motion planned for tomorrow (see <a href=\"https://www.theguardian.com/politics/live/2026/jul/14/ann-widdecombe-nigel-farage-reform-uk-security-protection-burnham-latest-news-updates?page=with%3Ablock-6a5622aa8f08300d616e438c#block-6a5622aa8f08300d616e438c\">1.04pm</a>), but of the topic that it was going to cover. In a bid to convince MPs that this was not a lie, he said that he was standing at the despatch box and that MPs knew the importance of a minister “telling the absolute truth when they stand here”.</p><p>In the Commons, <strong>Alan Campbell</strong>, the leader of the house, has just announced there will be a change in parliamentary business tomorrow. Wednesday was set aside for an opposition day debate – a debate on a motion tabled by the Tories. Instead, there will be a general debate on the situation in Iran. There will also be a vote on <a href=\"https://www.theguardian.com/politics/2026/jul/13/uk-list-iran-islamic-revolutionary-guard-corps-irgc-terrorist-organisation\">the regulations banning support for Iran’s Islamic Revolutionary Guard Corps.</a></p><p>The government has a majority of more than 150 and it could not trust its MPs to vote the right way on that motion [delaying the recess], and it could not bear the idea of a new prime minister facing any scrutiny before September.</p><p>A prime minister, let me remind us all, who has been chosen by a coronation not a contest, with no known platform, almost no known policies, and no idea of his priorities or indeed his cabinet team.</p> <a href=\"https://www.theguardian.com/politics/live/2026/jul/14/ann-widdecombe-nigel-farage-reform-uk-security-protection-burnham-latest-news-updates\">Continue reading...</a>",
+        "link": "https://www.theguardian.com/politics/live/2026/jul/14/ann-widdecombe-nigel-farage-reform-uk-security-protection-burnham-latest-news-updates",
+        "place": "Iran",
+        "location": {
+          "name": "Iran",
+          "type": "country",
+          "country": "Iran",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "Asia",
+          "latitude": 32.4279,
+          "longitude": 53.688,
+          "precision": "country",
+          "geohash": null,
+          "timezone": null,
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 4,
+        "scraped_at": "2026-07-14T18:35:07.664349+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.9763254,
+          45.294497
+        ]
+      },
+      "properties": {
+        "id_hash": "bebecc87bae69d8b07c6507d1c69495f4fa81a39cff5a5a10e10b079fa29e214",
+        "title": "Britons urged to take ‘small steps’ to prepare for potential national crises",
+        "summary": "<p>Government to launch campaign to help people cope with events such as weather emergencies or cyber-attacks</p><p>The British public should begin taking “small but important steps” to secure and protect water, power supplies and basic phone signal in case of further severe weather emergencies, national crises or cyber-attacks, Downing Street has said.</p><p>Darren Jones, the chief secretary to the prime minister, told MPs “the risks we face from climate change cannot be underestimated”, and warned of the “significant and prolonged disruption to essential services” extreme weather events could cause.</p> <a href=\"https://www.theguardian.com/politics/2026/jul/14/britons-urged-small-steps-prepare-potential-national-crises\">Continue reading...</a>",
+        "link": "https://www.theguardian.com/politics/2026/jul/14/britons-urged-small-steps-prepare-potential-national-crises",
+        "place": "Britons Shoal",
+        "location": {
+          "name": "Britons Shoal",
+          "type": "water",
+          "country": "Canada",
+          "region": "Nova Scotia",
+          "department": null,
+          "municipality": null,
+          "continent": null,
+          "latitude": 45.294497,
+          "longitude": -60.9763254,
+          "precision": "water",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 4,
+        "scraped_at": "2026-07-14T18:35:08.726727+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2973,
+          4.5709
+        ]
+      },
+      "properties": {
+        "id_hash": "3454a777d204f1610f3d02212290be164fef96be75a08dcab56a1b7e5c788988",
+        "title": "ICE identifies Joan Sebastian Duran Guerrero as man agents fatally shot in Maine",
+        "summary": "<p>An immigration officer shot and killed the 26-year-old Colombian man afte reportedly ramming into his car</p><p>The man <a href=\"https://www.theguardian.com/us-news/2026/jul/13/maine-ice-shooting-death\">killed by Immigration and Customs Enforcement (ICE) agents</a> in Maine on Monday has been identified as Joan Sebastian Duran<strong> </strong>Guerrero, an ICE spokesperson said in a statement .</p><p>An immigration agent shot and killed the 26-year-old Colombian man on Monday morning in Biddeford, Maine, after reportedly ramming into his car.</p> <a href=\"https://www.theguardian.com/us-news/2026/jul/14/ice-shooting-maine-joan-sebastian-guerrero\">Continue reading...</a>",
+        "link": "https://www.theguardian.com/us-news/2026/jul/14/ice-shooting-maine-joan-sebastian-guerrero",
+        "place": "Colombia",
+        "location": {
+          "name": "Colombia",
+          "type": "country",
+          "country": "Colombia",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "South America",
+          "latitude": 4.5709,
+          "longitude": -74.2973,
+          "precision": "country",
+          "geohash": null,
+          "timezone": "America/Bogota",
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:08.726927+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.8516,
+          31.0461
+        ]
+      },
+      "properties": {
+        "id_hash": "6a7b13c16d95822d3553198d5fe5d62b46640bf9371521ecbc186fb498b4a3ca",
+        "title": "Top House Democrats vow to oppose bid to cut US military aid to Israel",
+        "summary": "<p>House minority leader, Hakeem Jeffries, calls amendment ‘overly broad’ as party grapples with backlash over Israel</p><ul><li><p><a href=\"https://www.theguardian.com/us-news/live/2026/jul/14/ice-shooting-maine-texas-trump-immigration-politics\">US politics live – latest updates</a></p></li></ul><p>Top House <a href=\"https://www.theguardian.com/us-news/democrats\">Democrats</a> on Tuesday said they will oppose an effort to cut funding from <a href=\"https://www.theguardian.com/world/israel\">Israel</a>’s military, amid a rebellion from voters over US support for the Middle Eastern ally that has roiled recent primary elections.</p><p>The party has been debating how to vote on an amendment that would halt $3.3bn in military aid for Israel, which Republican congressman Thomas Massie has proposed adding to an appropriations bill for the state department and related agencies. Democrats were debating the amendment, which may come up for a vote before the House of Representatives later this week, in the context of a slew of primary victories by candidates who have vowed to take a hardline against Israel.</p> <a href=\"https://www.theguardian.com/world/2026/jul/14/us-military-aid-israel-house-democrats\">Continue reading...</a>",
+        "link": "https://www.theguardian.com/world/2026/jul/14/us-military-aid-israel-house-democrats",
+        "place": "Israel",
+        "location": {
+          "name": "Israel",
+          "type": "country",
+          "country": "Israel",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "Asia",
+          "latitude": 31.0461,
+          "longitude": 34.8516,
+          "precision": "country",
+          "geohash": null,
+          "timezone": null,
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 0,
+        "scraped_at": "2026-07-14T18:35:08.727239+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0060152,
+          40.7127281
+        ]
+      },
+      "properties": {
+        "id_hash": "c3a66e49549a7795ba4fc018526a4397c0fcdc3f5cbabc85a24d6979b26c28e2",
+        "title": "Pilot known for ‘Miracle on the Hudson’ river plane landing reveals Alzheimer’s diagnosis",
+        "summary": "<p>Chesley Sullenberger, 75, safely landed a US Airways flight carrying 155 people in New York’s Hudson river in 2009</p><p>Chesley “Sully” Sullenberger – the pilot known for the <a href=\"https://www.theguardian.com/world/2009/jan/16/us-airways-plane-crash-lands-on-hudson\">“Miracle on the Hudson”</a> after safely landing a US Airways flight in New York City’s Hudson river during a 2009 emergency – <a href=\"https://www.sullysullenberger.com/statement-from-capt-sully-sullenberger-july2026/\">announced on Tuesday</a> that he was recently diagnosed with Alzheimer’s disease.</p><p>“For now, this means a name may not come easily to me, I forget a story I have recently told, or I don’t sleep as well, but I am in the beginning of this long journey,” Sullenberger, 75, said in a <a href=\"https://www.sullysullenberger.com/statement-from-capt-sully-sullenberger-july2026/\">statement</a>. “This new phase of my life has challenged what it means to be of service. And the answer is to speak up. It is my hope that by sharing this, other families living in the shadows with this disease will feel they too can step forward.”</p> <a href=\"https://www.theguardian.com/us-news/2026/jul/14/sully-sullenberger-alzheimers-diagnosis\">Continue reading...</a>",
+        "link": "https://www.theguardian.com/us-news/2026/jul/14/sully-sullenberger-alzheimers-diagnosis",
+        "place": "New York",
+        "location": {
+          "name": "New York",
+          "type": "administrative",
+          "country": "United States",
+          "region": "New York",
+          "department": null,
+          "municipality": "New York",
+          "continent": null,
+          "latitude": 40.7127281,
+          "longitude": -74.0060152,
+          "precision": "administrative",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:09.958854+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.688,
+          32.4279
+        ]
+      },
+      "properties": {
+        "id_hash": "b092735660b7d15c287814275c4f49eb609cd900b8fcaaf31fe6f8c113ac3822",
+        "title": "War, talks, repeat: How to break the cycle between US and Iran?",
+        "summary": "Who needs nuclear weapons when you’ve got the Strait of Hormuz? Sure, ordinary Iranians are far worse off than on February 28th when the US and Israel launched a war that killed the Supreme Leader on Day One but the Islamic Republic's since discovered it’s got leverage beyond its wildest dream and betting that Donald Trump’s threats of invasion are empty.",
+        "link": "https://www.france24.com/en/tv-shows/the-debate/20260714-war-talks-repeat-how-to-break-the-cycle-between-us-and-iran",
+        "place": "Iran",
+        "location": {
+          "name": "Iran",
+          "type": "country",
+          "country": "Iran",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "Asia",
+          "latitude": 32.4279,
+          "longitude": 53.688,
+          "precision": "country",
+          "geohash": null,
+          "timezone": null,
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 6,
+        "scraped_at": "2026-07-14T18:35:10.418406+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.8379791,
+          39.3260685
+        ]
+      },
+      "properties": {
+        "id_hash": "2e58b810465334f4beb8997ed0b822f03ff7e86a7bfa618a9bc8d8a663703003",
+        "title": "Spain's 'Formidable Opponent': Rajoy credits France's football success to having 'no French players'",
+        "summary": "Nadia Massih is pleased to welcome Dr Leon Moosavi, Sociologist of race and religion, and Reader in the Department of Sociology, Social Policy and Criminology at the University of Liverpool. Racism directed at the French national football team is often framed as a problem of sport, yet Dr. Moosavi argues that football merely provides a highly visible stage upon which much deeper political and social conflicts play out. Rather than viewing racist abuse against players such as Kylian Mbappé as isolated incidents or the actions of a few extremists, our guest describes these attacks within wider debates over national identity, immigration, belonging, and the normalization of extremist rhetoric and exclusionary political discourse across many Western democracies.",
+        "link": "https://www.france24.com/en/video/20260714-spain-s-formidable-opponent-rajoy-credits-france-s-football-success-to-having-no-french-players-1",
+        "place": "España",
+        "location": {
+          "name": "España",
+          "type": "administrative",
+          "country": "España",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": null,
+          "latitude": 39.3260685,
+          "longitude": -4.8379791,
+          "precision": "administrative",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:11.849500+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.8883335,
+          46.603354
+        ]
+      },
+      "properties": {
+        "id_hash": "4a821f052a2939bf8d74c5910fbbb6ef943ba39793914b0af4011dfdfa2428b2",
+        "title": "France vs Spain live: World Cup favourites take on European champions in crunch semi-final",
+        "summary": "A place in the World Cup final is at stake as Kylian Mbappé’s France face Lamine Yamal’s Spain at the Dallas Stadium on Bastille Day, in a mouthwatering clash of styles pitting the tournament’s most formidable attacking armada against its smoothest midfield and stingiest defence. Follow our live, minute-by-minute match commentary.",
+        "link": "https://www.france24.com/en/sport/20260714-france-vs-spain-live-world-cup-favourites-european-champions-semi-final-mbappe-yamal",
+        "place": "France",
+        "location": {
+          "name": "France",
+          "type": "administrative",
+          "country": "France",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": null,
+          "latitude": 46.603354,
+          "longitude": 1.8883335,
+          "precision": "administrative",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:13.106355+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.2683912,
+          43.7009358
+        ]
+      },
+      "properties": {
+        "id_hash": "29bf8fa3510f6915fc8977f58935b2e6a3928152755ced3d5867622ec51f4cde",
+        "title": "France marks tenth anniversary of deadly Nice terror attack",
+        "summary": "President Emmanuel Macron held a national tribute in Nice on Tuesday for the victims of a deadly jihadist attack 10 years ago in the southern French city. Later Tuesday, the French football team will observe a minute of silence ahead of their World Cup semi-final in a commemoration to the 86 victims of the attack.",
+        "link": "https://www.france24.com/en/france/20260714-france-marks-tenth-anniversary-of-deadly-nice-terror-attack",
+        "place": "Nice",
+        "location": {
+          "name": "Nice",
+          "type": "administrative",
+          "country": "France",
+          "region": "Provence-Alpes-Côte d'Azur",
+          "department": null,
+          "municipality": "Nice",
+          "continent": null,
+          "latitude": 43.7009358,
+          "longitude": 7.2683912,
+          "precision": "administrative",
+          "geohash": null,
+          "timezone": null,
+          "source": "OpenStreetMap Nominatim",
+          "confidence": 0.9
+        },
+        "severity": 2,
+        "scraped_at": "2026-07-14T18:35:14.579809+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2973,
+          4.5709
+        ]
+      },
+      "properties": {
+        "id_hash": "5caf6f2bd532a9d3dd44de49138e84e7c40e4be508198c986cc08e129e0b0aa6",
+        "title": "Sincelejo se mantiene como la ciudad más segura de Colombia en el primer semestre de 2026 y Gobierno entrante promete respaldo a autoridades locales",
+        "summary": "Gobiernos entrante y saliente coinciden en replicar seguridad de Sincelejo",
+        "link": "https://www.eltiempo.com/colombia/otras-ciudades/sincelejo-se-mantiene-como-la-ciudad-mas-segura-de-colombia-en-el-primer-semestre-de-2026-y-gobierno-entrante-promete-respaldo-a-autoridades-locales-3571138",
+        "place": "Colombia",
+        "location": {
+          "name": "Colombia",
+          "type": "country",
+          "country": "Colombia",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "South America",
+          "latitude": 4.5709,
+          "longitude": -74.2973,
+          "precision": "country",
+          "geohash": null,
+          "timezone": "America/Bogota",
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 0,
+        "scraped_at": "2026-07-14T18:35:18.350601+00:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2973,
+          4.5709
+        ]
+      },
+      "properties": {
+        "id_hash": "c7be9c1a611acfebb7529c7f9f11734231d0f0f7fed2b6f5a41307d42d73f409",
+        "title": "Atlántico | Joven de 16 años muere por inmersión en Puerto Colombia: ya son siete los fallecidos este año y crece la preocupación en las playas",
+        "summary": "Las autoridades indicaron de manera preliminar que el hecho estaría relacionado con las fuertes condiciones marítimas registradas en la zona.",
+        "link": "https://www.eltiempo.com/colombia/barranquilla/atlantico-joven-de-16-anos-muere-por-inmersion-en-puerto-colombia-ya-son-siete-los-fallecidos-este-ano-y-crece-la-preocupacion-en-las-playas-3571130",
+        "place": "Colombia",
+        "location": {
+          "name": "Colombia",
+          "type": "country",
+          "country": "Colombia",
+          "region": null,
+          "department": null,
+          "municipality": null,
+          "continent": "South America",
+          "latitude": 4.5709,
+          "longitude": -74.2973,
+          "precision": "country",
+          "geohash": null,
+          "timezone": "America/Bogota",
+          "source": "Local Dictionary",
+          "confidence": 1.0
+        },
+        "severity": 0,
+        "scraped_at": "2026-07-14T18:35:18.350717+00:00"
+      }
     }
   ]
 }
