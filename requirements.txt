@@ -1,4 +1,8 @@
 feedparser
 requests
 pandas
+flask
+# Opcionales (la app funciona sin ellos)
 ttkbootstrap
+transformers
+torch

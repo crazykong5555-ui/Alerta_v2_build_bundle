@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ollama GeoJSON</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        .panel {
+            max-width: 1200px;
+            margin: auto;
+            background: #111827;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        input, button {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0b1220;
+            color: #f8fafc;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        #map {
+            height: 420px;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        #output {
+            white-space: pre-wrap;
+            background: #020817;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 16px;
+            min-height: 200px;
+            margin-top: 16px;
+            overflow: auto;
+        }
+        .small {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>🌍 Ollama GeoJSON</h1>
+        <p class="small">Carga un GeoJSON y pide a Ollama que extraiga sitios geográficos relevantes para devolver un GeoJSON de salida y mostrarlo en el mapa.</p>
+
+        <form id="ollamaForm">
+            <div class="row">
+                <div>
+                    <label for="model">Modelo Ollama</label>
+                    <input id="model" name="model" value="llama3.1" />
+                </div>
+                <div>
+                    <label for="prompt">Prompt</label>
+                    <input id="prompt" name="prompt" value="Identifica los sitios geográficos relevantes del GeoJSON y devuelve solamente un GeoJSON válido." />
+                </div>
+            </div>
+
+            <label for="geojsonFile">Archivo GeoJSON</label>
+            <input id="geojsonFile" name="files" type="file" accept=".geojson,.json" multiple />
+
+            <button type="submit">Generar GeoJSON con Ollama</button>
+        </form>
+
+        <div id="map"></div>
+        <div id="output">Esperando archivo...</div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        let geoLayer = null;
+
+        function clearMap() {
+            if (geoLayer) {
+                map.removeLayer(geoLayer);
+                geoLayer = null;
+            }
+        }
+
+        function normalizeFeature(feature) {
+            const props = feature.properties || {};
+            const geometry = feature.geometry || {};
+            const coords = geometry.coordinates || [];
+
+            let lon = props.lon ?? props.longitude ?? null;
+            let lat = props.lat ?? props.latitude ?? null;
+
+            if (lon == null && coords.length >= 2) {
+                lon = coords[0];
+                lat = coords[1];
+            }
+
+            if (lon == null || lat == null) return null;
+
+            return {
+                type: 'Feature',
+                properties: {
+                    ...props,
+                    name: props.name || props.place || props.title || 'Ubicación',
+                    confidence: props.confidence || 'n/a'
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: [Number(lon), Number(lat)]
+                }
+            };
+        }
+
+        function renderGeoJson(geojson) {
+            clearMap();
+
+            const validFeatures = [];
+            for (const feature of geojson.features || []) {
+                const normalized = normalizeFeature(feature);
+                if (normalized) validFeatures.push(normalized);
+            }
+
+            if (!validFeatures.length) {
+                output.textContent = 'La respuesta no contiene ubicaciones con coordenadas válidas.';
+                return;
+            }
+
+            geoLayer = L.geoJSON({
+                type: 'FeatureCollection',
+                features: validFeatures
+            }, {
+                pointToLayer: function(feature, latlng) {
+                    const props = feature.properties || {};
+                    const marker = L.marker(latlng);
+                    const name = props.name || 'Ubicación';
+                    const confidence = props.confidence ? `Confianza: ${props.confidence}` : '';
+                    const source = props.source ? `Fuente: ${props.source}` : '';
+                    const country = props.country ? `País: ${props.country}` : '';
+                    marker.bindPopup(`<strong>${name}</strong><br>${country}<br>${source}<br>${confidence}`);
+                    return marker;
+                }
+            }).addTo(map);
+
+            const bounds = geoLayer.getBounds();
+            if (bounds.isValid()) {
+                map.fitBounds(bounds, { padding: [30, 30] });
+            }
+
+            output.textContent = JSON.stringify({ type: 'FeatureCollection', features: validFeatures }, null, 2);
+        }
+
+        const form = document.getElementById('ollamaForm');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            output.textContent = 'Enviando al modelo...';
+
+            const formData = new FormData(form);
+            const fileInput = document.getElementById('geojsonFile');
+            if (!fileInput.files.length) {
+                output.textContent = 'Debes seleccionar al menos un archivo GeoJSON.';
+                return;
+            }
+
+            for (const file of fileInput.files) {
+                formData.append('files', file);
+            }
+
+            try {
+                const response = await fetch('/api/ollama', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error al procesar con Ollama');
+                }
+
+                renderGeoJson(data.result);
+            } catch (error) {
+                output.textContent = 'ERROR: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
